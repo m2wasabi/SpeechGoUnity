@@ -34,3 +34,8 @@ sysinfo.txt
 *.unitypackage
 
 /Build/
+
+/Assets/HoloToolKit/
+/Assets/HoloToolKit.meta
+/Assets/FrostweepGames/
+/Assets/FrostweepGames.meta
