@@ -11,8 +11,7 @@ public class speech : MonoBehaviour
     private ILowLevelSpeechRecognition _speechRecognition;
     private InputField _contextPhrases;
 
-    public AudioClip SpeechFeedbackSound;
-    public AudioSource reactionAudioSource;
+    private ReactionManager _reactionManager;
 
     // Use this for initialization
     void Start()
@@ -21,21 +20,7 @@ public class speech : MonoBehaviour
         _speechRecognition.SpeechRecognizedSuccessEvent += SpeechRecognizedSuccessEventHandler;
         _speechRecognition.SpeechRecognizedFailedEvent += SpeechRecognizedFailedEventHandler;
 
-        if (SpeechFeedbackSound != null)
-        {
-            /*
-            reactionAudioSource = GetComponent<AudioSource>();
-            if (reactionAudioSource == null)
-            {
-                reactionAudioSource = gameObject.AddComponent<AudioSource>();
-            }
-            */
-            reactionAudioSource.clip = SpeechFeedbackSound;
-            reactionAudioSource.playOnAwake = false;
-            reactionAudioSource.priority = 1;
-            reactionAudioSource.spatialBlend = 1;
-            reactionAudioSource.dopplerLevel = 0;
-        }
+        _reactionManager = ReactionManager.Instance;
     }
 
     // Update is called once per frame
@@ -89,7 +74,7 @@ public class speech : MonoBehaviour
 
             InformationMesh.text += other;
             */
-            SpeechReaction();
+            SpeechReaction(obj);
         }
         else
         {
@@ -98,12 +83,9 @@ public class speech : MonoBehaviour
         }
     }
 
-    private void SpeechReaction()
+    private void SpeechReaction(RecognitionResponse obj)
     {
-        if (InformationMesh.text.IndexOf("最高") != -1)
-        {
-            reactionAudioSource.Play();
-        }
+        _reactionManager.Action(obj);
     }
 
     private void StartRuntimeDetectionButtonOnClickHandler()
