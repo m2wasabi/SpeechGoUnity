@@ -9,7 +9,7 @@ public class speech : MonoBehaviour
 {
     public TextMesh InformationMesh;
     private ILowLevelSpeechRecognition _speechRecognition;
-    private InputField _contextPhrases;
+    //private InputField _contextPhrases;
 
     private ReactionManager _reactionManager;
 
@@ -41,13 +41,13 @@ public class speech : MonoBehaviour
         (_speechRecognition as SpeechRecognitionModule).isRuntimeDetection = value;
     }
 
-    private void ApplySpeechContextPhrases()
-    {
-        string[] phrases = _contextPhrases.text.Trim().Split(","[0]);
+    //private void ApplySpeechContextPhrases()
+    //{
+    //    string[] phrases = _contextPhrases.text.Trim().Split(","[0]);
 
-        if (phrases.Length > 0)
-            _speechRecognition.SetSpeechContext(phrases);
-    }
+    //    if (phrases.Length > 0)
+    //        _speechRecognition.SetSpeechContext(phrases);
+    //}
 
     private void SpeechRecognizedFailedEventHandler(string obj)
     {
