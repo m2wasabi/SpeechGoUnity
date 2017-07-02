@@ -598,6 +598,11 @@ Prefab:
         type: 2}
       propertyPath: RoomModel
       value: 
+      objectReference: {fileID: 100006, guid: bf59fbaac6575ae46a6d8d351dc72332, type: 3}
+    - target: {fileID: 114000012149591842, guid: 2ed75ffdf9031c94e8bce4b3d17b9928,
+        type: 2}
+      propertyPath: SimulatedUpdatePeriodInSeconds
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2ed75ffdf9031c94e8bce4b3d17b9928, type: 2}
@@ -685,7 +690,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
