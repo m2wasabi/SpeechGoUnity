@@ -10,6 +10,7 @@ public class ReactionManager : Singleton<ReactionManager>
     public AudioClip SpeechFeedbackSound;
     private AudioSource reactionAudioSource;
     public GameObject TextObject;
+    public GameObject TextBombObject;
     private GameObject Camera;
     public float BulletSpeed = 1000;
 
@@ -38,7 +39,7 @@ public class ReactionManager : Singleton<ReactionManager>
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GenerateTextObject("Hello!");
+            GenerateTextObject("Hello!", TextBombObject);
         }
     }
 
@@ -52,7 +53,14 @@ public class ReactionManager : Singleton<ReactionManager>
         //    Instantiate(TextObject, hit.point, Quaternion.identity);
         //}
 
-        GenerateTextObject(text);
+        if (text.IndexOf("爆発") != -1)
+        {
+            GenerateTextObject(text, TextBombObject);
+        }
+        else
+        {
+            GenerateTextObject(text, TextObject);
+        }
 
         if (text.IndexOf("最高") != -1)
         {
@@ -60,9 +68,9 @@ public class ReactionManager : Singleton<ReactionManager>
         }
     }
 
-    private void GenerateTextObject(string word)
+    private void GenerateTextObject(string word, GameObject prefab)
     {
-        GameObject wordBullet = GameObject.Instantiate(TextObject);
+        GameObject wordBullet = GameObject.Instantiate(prefab);
         Vector3 force;
         force = Camera.transform.forward * BulletSpeed;
         wordBullet.GetComponent<Rigidbody>().AddForce(force);

@@ -162,6 +162,10 @@ Prefab:
       propertyPath: m_FontSize
       value: 128
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013198843976, guid: bfdc7f60d7205c84f82a4806a5352d60, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bfdc7f60d7205c84f82a4806a5352d60, type: 2}
   m_IsPrefabParent: 0
@@ -449,6 +453,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpeechFeedbackSound: {fileID: 8300000, guid: ca0ac83475452bf4d8b6b036b4849498, type: 3}
   TextObject: {fileID: 1323213060122338, guid: 23f7194656b66874dad625f7bdddd65d, type: 2}
+  TextBombObject: {fileID: 1275243437120860, guid: f505f15a858d74e44a98d8f567306424,
+    type: 2}
   BulletSpeed: 1000
 --- !u!1001 &1152584016
 Prefab:
