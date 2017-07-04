@@ -1,7 +1,9 @@
 ﻿using HoloToolkit.Unity.InputModule;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Windows.Speech;
 
 public class rotate : MonoBehaviour, IFocusable
 {
@@ -15,6 +17,15 @@ public class rotate : MonoBehaviour, IFocusable
     public AudioClip TargetFeedbackSound2;
 
     public Vector3 RotateVector3;
+
+
+    private GameObject HoloLensCamera;
+    private Vector3 _targetPos;
+
+    // Windows KeywordRecognizer
+    private KeywordRecognizer keywordRecognizer;
+    delegate void KeywordAction(PhraseRecognizedEventArgs args);
+    Dictionary<string, KeywordAction> keywordCollection;
 
     private speech _speech;
 	// Use this for initialization
@@ -33,6 +44,17 @@ public class rotate : MonoBehaviour, IFocusable
             audioSource.spatialBlend = 1;
             audioSource.dopplerLevel = 0;
         }
+
+        // KeywordRecognizer
+        keywordCollection = new Dictionary<string, KeywordAction>();
+        keywordCollection.Add("Cube Come Here", CubeMoveInCamera);
+        keywordRecognizer = new KeywordRecognizer(keywordCollection.Keys.ToArray());
+        keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
+        keywordRecognizer.Start();
+
+        // Find Camera
+        HoloLensCamera = GameObject.Find("HoloLensCamera");
+        _targetPos = HoloLensCamera.transform.position;
     }
 
     // Update is called once per frame
@@ -41,6 +63,8 @@ public class rotate : MonoBehaviour, IFocusable
         {
             transform.Rotate(RotateVector3 * Time.deltaTime * Speed);
         }
+
+        transform.position = Vector3.Slerp(transform.position, _targetPos, Time.deltaTime);
     }
 
     void BeginRotate()
@@ -79,5 +103,20 @@ public class rotate : MonoBehaviour, IFocusable
             _speech.StopRecordButtonOnClickHandler();
             StopRotate();
         }
+    }
+
+    private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
+    {
+        KeywordAction keywordAction;
+
+        if (keywordCollection.TryGetValue(args.text, out keywordAction))
+        {
+            keywordAction.Invoke(args);
+        }
+    }
+
+    private void CubeMoveInCamera(PhraseRecognizedEventArgs args)
+    {
+        _targetPos = HoloLensCamera.transform.position + (HoloLensCamera.transform.forward * 1);
     }
 }
