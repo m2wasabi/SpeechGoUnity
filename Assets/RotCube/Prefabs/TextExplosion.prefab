@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 114481218422960326}
   - component: {fileID: 114045151158352620}
   - component: {fileID: 82443544556316894}
+  - component: {fileID: 114551384586767844}
   m_Layer: 0
   m_Name: TextExplosion
   m_TagString: Untagged
@@ -425,6 +426,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionForce: 20
+--- !u!114 &114551384586767844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1713448761605032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa38c215de7972441bc8fbf918822c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EliminateTimer: 4
 --- !u!198 &198030652131797984
 ParticleSystem:
   m_ObjectHideFlags: 1
