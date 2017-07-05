@@ -289,6 +289,7 @@ GameObject:
   - component: {fileID: 380734903}
   - component: {fileID: 380734902}
   - component: {fileID: 380734907}
+  - component: {fileID: 380734908}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -388,6 +389,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InformationMesh: {fileID: 101165324}
+  ChargeSound: {fileID: 8300000, guid: 43a48eb0b6cdece4e9b84cd0dab5ee84, type: 3}
+  FireSound: {fileID: 8300000, guid: ea8dc47cba1ca1c40b2caa23ec78b7d5, type: 3}
+  ThinkSound: {fileID: 8300000, guid: b4f4b74d9da28c94f8d5492b41df0c9c, type: 3}
+  FailSound: {fileID: 8300000, guid: d4b3a95ddd8d15c4b8970e9a9a39b869, type: 3}
+--- !u!114 &380734908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 380734901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 826a826cc99867d42b1448276512275b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChargeSound: {fileID: 8300000, guid: 43a48eb0b6cdece4e9b84cd0dab5ee84, type: 3}
+  FireSound: {fileID: 8300000, guid: ea8dc47cba1ca1c40b2caa23ec78b7d5, type: 3}
+  _cursor: {fileID: 385140994}
+  InformationMesh: {fileID: 101165324}
+--- !u!114 &385140994 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000011521989572, guid: a611e772ef8ddf64d8106a9cbb70f31c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1239514762}
+  m_Script: {fileID: 11500000, guid: 0decd33ba8702954885a62b5bc1a778e, type: 3}
 --- !u!1001 &508763973
 Prefab:
   m_ObjectHideFlags: 0
