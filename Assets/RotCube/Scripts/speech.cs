@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using FrostweepGames.SpeechRecognition.Utilites;
 using FrostweepGames.SpeechRecognition.Google.Cloud;
+using UnityEngine.VR.WSA.Input;
+using System;
 
 public class speech : MonoBehaviour
 {
@@ -13,6 +15,41 @@ public class speech : MonoBehaviour
 
     private ReactionManager _reactionManager;
 
+    public GestureRecognizer InputActionRecognizer { get; private set; }
+
+    // 仮
+    private AudioSource _audioSource;
+    public AudioClip ChargeSound;
+    public AudioClip FireSound;
+    public AudioClip ThinkSound;
+    public AudioClip FailSound;
+
+    // 仮
+
+    void Awake()
+    {
+        InputActionRecognizer = new GestureRecognizer();
+        InputActionRecognizer.SetRecognizableGestures(GestureSettings.Hold);
+
+        InputActionRecognizer.HoldStartedEvent += InputActionRecognizer_HoldStartEvent;
+        InputActionRecognizer.HoldCompletedEvent += InputActionRecognizer_HoldCompletedEvent;
+    }
+
+    private void InputActionRecognizer_HoldStartEvent(InteractionSourceKind source, Ray headRay)
+    {
+        _audioSource.clip = ChargeSound;
+        _audioSource.Play();
+
+        //StartRecordButtonOnClickHandler();
+    }
+
+    private void InputActionRecognizer_HoldCompletedEvent(InteractionSourceKind source, Ray headRay)
+    {
+        _audioSource.clip = FireSound;
+        _audioSource.Play();
+        //StopRecordButtonOnClickHandler();
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -21,6 +58,10 @@ public class speech : MonoBehaviour
         _speechRecognition.SpeechRecognizedFailedEvent += SpeechRecognizedFailedEventHandler;
 
         _reactionManager = ReactionManager.Instance;
+
+        // 仮
+        _audioSource = GetComponent<AudioSource>();
+        // 仮
     }
 
     // Update is called once per frame
@@ -52,6 +93,8 @@ public class speech : MonoBehaviour
     private void SpeechRecognizedFailedEventHandler(string obj)
     {
         InformationMesh.text = "Speech Recognition failed with error: " + obj;
+        _audioSource.clip = FailSound;
+        _audioSource.Play();
     }
 
     private void SpeechRecognizedSuccessEventHandler(RecognitionResponse obj)
@@ -79,6 +122,8 @@ public class speech : MonoBehaviour
         else
         {
             InformationMesh.text = "Speech Recognition succeeded! Words are no detected.";
+            _audioSource.clip = FailSound;
+            _audioSource.Play();
 
         }
     }
