@@ -17,10 +17,13 @@ public class rotate : MonoBehaviour, IFocusable
     public AudioClip TargetFeedbackSound2;
 
     public Vector3 RotateVector3;
+    private GameObject _cubeMesh;
 
 
     private GameObject HoloLensCamera;
     private Vector3 _targetPos;
+
+    private ReactionManager _reactioManager;
 
     // Windows KeywordRecognizer
     private KeywordRecognizer keywordRecognizer;
@@ -48,6 +51,7 @@ public class rotate : MonoBehaviour, IFocusable
         // KeywordRecognizer
         keywordCollection = new Dictionary<string, KeywordAction>();
         keywordCollection.Add("Cube Come Here", CubeMoveInCamera);
+        keywordCollection.Add("Switch", ToggleBulletSource);
         keywordRecognizer = new KeywordRecognizer(keywordCollection.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
         keywordRecognizer.Start();
@@ -55,13 +59,24 @@ public class rotate : MonoBehaviour, IFocusable
         // Find Camera
         HoloLensCamera = GameObject.Find("HoloLensCamera");
         _targetPos = HoloLensCamera.transform.position;
+
+        // Find cubemesh
+        _cubeMesh = transform.Find("CubeMesh").gameObject;
+
+        // Find ReactionManager
+        _reactioManager = GameObject.Find("InputManager").GetComponent<ReactionManager>();
     }
 
     // Update is called once per frame
     void Update () {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            _reactioManager.BulletSourceIndex = (_reactioManager.BulletSourceIndex == 0) ? 1 : 0;
+        }
+
         if (isRotate)
         {
-            transform.Rotate(RotateVector3 * Time.deltaTime * Speed);
+            _cubeMesh.transform.Rotate(RotateVector3 * Time.deltaTime * Speed);
         }
 
         transform.position = Vector3.Slerp(transform.position, _targetPos, Time.deltaTime);
@@ -118,5 +133,10 @@ public class rotate : MonoBehaviour, IFocusable
     private void CubeMoveInCamera(PhraseRecognizedEventArgs args)
     {
         _targetPos = HoloLensCamera.transform.position + (HoloLensCamera.transform.forward * 1);
+    }
+
+    private void ToggleBulletSource(PhraseRecognizedEventArgs args)
+    {
+        _reactioManager.BulletSourceIndex = (_reactioManager.BulletSourceIndex == 0) ? 1 : 0;
     }
 }

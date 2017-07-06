@@ -13,6 +13,8 @@ public class ReactionManager : Singleton<ReactionManager>
     public GameObject TextBombObject;
     private GameObject Camera;
     public float BulletSpeed = 1000;
+    public int BulletSourceIndex = 0;
+    public GameObject[] BulletSources;
 
     // Use this for initialization
     void Start () {
@@ -72,9 +74,9 @@ public class ReactionManager : Singleton<ReactionManager>
     {
         GameObject wordBullet = GameObject.Instantiate(prefab);
         Vector3 force;
-        force = Camera.transform.forward * BulletSpeed;
+        force = BulletSources[BulletSourceIndex].transform.forward * BulletSpeed;
         wordBullet.GetComponent<Rigidbody>().AddForce(force);
-        wordBullet.transform.position = Camera.transform.position;
+        wordBullet.transform.position = BulletSources[BulletSourceIndex].transform.position;
         TextMesh _text = wordBullet.GetComponent<TextMesh>();
         _text.text = word;
     }
