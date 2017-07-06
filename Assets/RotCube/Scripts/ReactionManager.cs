@@ -11,7 +11,6 @@ public class ReactionManager : Singleton<ReactionManager>
     private AudioSource reactionAudioSource;
     public GameObject TextObject;
     public GameObject TextBombObject;
-    private GameObject Camera;
     public float BulletSpeed = 1000;
     public int BulletSourceIndex = 0;
     public GameObject[] BulletSources;
@@ -32,8 +31,6 @@ public class ReactionManager : Singleton<ReactionManager>
             reactionAudioSource.spatialBlend = 1;
             reactionAudioSource.dopplerLevel = 0;
         }
-
-        Camera = GameObject.Find("HoloLensCamera");
     }
 
     // Update is called once per frame
