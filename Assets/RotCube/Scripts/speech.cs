@@ -61,6 +61,13 @@ public class speech : MonoBehaviour
 
         // 仮
         _audioSource = GetComponent<AudioSource>();
+        if (_audioSource == null)
+        {
+            _audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        _audioSource.playOnAwake = false;
+        _audioSource.spatialBlend = 1;
+        _audioSource.dopplerLevel = 0;
         // 仮
     }
 

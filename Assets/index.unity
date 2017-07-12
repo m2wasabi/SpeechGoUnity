@@ -150,7 +150,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010330146594, guid: bfdc7f60d7205c84f82a4806a5352d60, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 102000010767390410, guid: bfdc7f60d7205c84f82a4806a5352d60,
         type: 2}
@@ -368,7 +368,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2067297701}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &385140994 stripped
 MonoBehaviour:
@@ -448,6 +448,22 @@ MonoBehaviour:
   BulletSources:
   - {fileID: 2020194316}
   - {fileID: 2067297697}
+--- !u!114 &917150477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 917150470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e43c7f855f48f47b3bd4db42e5bee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InformationMesh: {fileID: 101165324}
+  ChargeSound: {fileID: 8300000, guid: 43a48eb0b6cdece4e9b84cd0dab5ee84, type: 3}
+  FireSound: {fileID: 8300000, guid: ea8dc47cba1ca1c40b2caa23ec78b7d5, type: 3}
+  ThinkSound: {fileID: 8300000, guid: b4f4b74d9da28c94f8d5492b41df0c9c, type: 3}
+  FailSound: {fileID: 8300000, guid: d4b3a95ddd8d15c4b8970e9a9a39b869, type: 3}
 --- !u!1001 &1152584016
 Prefab:
   m_ObjectHideFlags: 0
@@ -547,6 +563,10 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a611e772ef8ddf64d8106a9cbb70f31c, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &1919560980 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: a5c65e03c519a9c43bc4e7fe9d43d47c, type: 3}
+  m_PrefabInternal: {fileID: 611744129}
 --- !u!1001 &1947077184
 Prefab:
   m_ObjectHideFlags: 0
@@ -613,7 +633,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2067297701}
   - component: {fileID: 2067297700}
-  - component: {fileID: 2067297699}
   - component: {fileID: 2067297698}
   m_Layer: 0
   m_Name: MagicCube
@@ -638,22 +657,6 @@ MonoBehaviour:
   TargetFeedbackSound2: {fileID: 8300000, guid: 499373f7fea86894e97ef2e5352d5816,
     type: 3}
   RotateVector3: {x: 0, y: 0, z: 0}
---- !u!114 &2067297699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2067297697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5e43c7f855f48f47b3bd4db42e5bee6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InformationMesh: {fileID: 101165324}
-  ChargeSound: {fileID: 8300000, guid: 43a48eb0b6cdece4e9b84cd0dab5ee84, type: 3}
-  FireSound: {fileID: 8300000, guid: ea8dc47cba1ca1c40b2caa23ec78b7d5, type: 3}
-  ThinkSound: {fileID: 8300000, guid: b4f4b74d9da28c94f8d5492b41df0c9c, type: 3}
-  FailSound: {fileID: 8300000, guid: d4b3a95ddd8d15c4b8970e9a9a39b869, type: 3}
 --- !u!114 &2067297700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,6 +682,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 2.84}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
+  - {fileID: 1919560980}
   - {fileID: 380734906}
   - {fileID: 2144348221}
   m_Father: {fileID: 0}

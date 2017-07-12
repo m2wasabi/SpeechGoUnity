@@ -33,7 +33,7 @@ public class rotate : MonoBehaviour, IFocusable
     private speech _speech;
 	// Use this for initialization
 	void Start () {
-        _speech = GetComponent<speech>();
+        _speech = GameObject.Find("InputManager").GetComponent<speech>();
 
         if(TargetFeedbackSound != null)
         {
