@@ -10,6 +10,10 @@ public class GazeSwitch : MonoBehaviour {
     private Vector3 _targetPos;
     private Vector3 _targetLookAt;
 
+    // clolor material
+    public Material[] Materials;
+    private int _materialIndex = 0;
+    public GameObject SwitchObject;
 
     // Windows KeywordRecognizer
     private KeywordRecognizer keywordRecognizer;
@@ -42,6 +46,14 @@ public class GazeSwitch : MonoBehaviour {
             MoveInCamera(new PhraseRecognizedEventArgs());
         }
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            SwitchOn();
+        }
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            SwitchOff();
+        }
 
         transform.position = Vector3.Slerp(transform.position, _targetPos, Time.deltaTime);
         transform.LookAt(_targetLookAt);
@@ -61,6 +73,18 @@ public class GazeSwitch : MonoBehaviour {
     {
         _targetPos = HoloLensCamera.transform.position + (HoloLensCamera.transform.TransformDirection(Vector3.forward) * 2);
         _targetLookAt = HoloLensCamera.transform.position + (HoloLensCamera.transform.TransformDirection(Vector3.forward) * 4);
+    }
+
+    public void SwitchOn()
+    {
+        Renderer _renderer = SwitchObject.GetComponent<Renderer>();
+        _renderer.material = Materials[1];
+    }
+
+    public void SwitchOff()
+    {
+        Renderer _renderer = SwitchObject.GetComponent<Renderer>();
+        _renderer.material = Materials[0];
     }
 
 }
