@@ -17,6 +17,9 @@ public class speech : MonoBehaviour
 
     public GestureRecognizer InputActionRecognizer { get; private set; }
 
+    public enum Status { Stop, Recording, Analyzing }
+    private Status _status = Status.Stop;
+
     // 仮
     private AudioSource _audioSource;
     public AudioClip ChargeSound;
@@ -102,6 +105,7 @@ public class speech : MonoBehaviour
         InformationMesh.text = "Speech Recognition failed with error: " + obj;
         _audioSource.clip = FailSound;
         _audioSource.Play();
+        _status = Status.Stop;
     }
 
     private void SpeechRecognizedSuccessEventHandler(RecognitionResponse obj)
@@ -133,6 +137,7 @@ public class speech : MonoBehaviour
             _audioSource.Play();
 
         }
+        _status = Status.Stop;
     }
 
     private void SpeechReaction(RecognitionResponse obj)
@@ -156,15 +161,21 @@ public class speech : MonoBehaviour
 
     public void StartRecordButtonOnClickHandler()
     {
-        InformationMesh.text = "";
-        _speechRecognition.StartRecord();
+        if (_status == Status.Stop)
+        {
+            InformationMesh.text = "";
+            _speechRecognition.StartRecord();
+            _status = Status.Recording;
+        }
     }
 
     public void StopRecordButtonOnClickHandler()
     {
-        //ApplySpeechContextPhrases();
-
-        _speechRecognition.StopRecord();
-
+        if (_status == Status.Recording)
+        {
+            //ApplySpeechContextPhrases();
+            _speechRecognition.StopRecord();
+            _status = Status.Analyzing;
+        }
     }
 }
