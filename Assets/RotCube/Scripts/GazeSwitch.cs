@@ -8,7 +8,7 @@ public class GazeSwitch : MonoBehaviour {
 
     private GameObject HoloLensCamera;
     private Vector3 _targetPos;
-    private Vector3 _targetRotation;
+    private Vector3 _targetLookAt;
 
 
     // Windows KeywordRecognizer
@@ -30,15 +30,21 @@ public class GazeSwitch : MonoBehaviour {
 
         // Find Camera
         HoloLensCamera = GameObject.Find("HoloLensCamera");
-        _targetPos = HoloLensCamera.transform.position;
-        _targetRotation = HoloLensCamera.transform.rotation.eulerAngles;
+        _targetPos = HoloLensCamera.transform.position + (HoloLensCamera.transform.TransformDirection(Vector3.forward) * 2);
+        _targetLookAt = HoloLensCamera.transform.position + (HoloLensCamera.transform.TransformDirection(Vector3.forward) * 4);
 
     }
 
     // Update is called once per frame
     void Update () {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            MoveInCamera(new PhraseRecognizedEventArgs());
+        }
+
+
         transform.position = Vector3.Slerp(transform.position, _targetPos, Time.deltaTime);
-        transform.Rotate(_targetRotation * Time.deltaTime, Space.World);
+        transform.LookAt(_targetLookAt);
     }
 
     private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
@@ -53,8 +59,8 @@ public class GazeSwitch : MonoBehaviour {
 
     private void MoveInCamera(PhraseRecognizedEventArgs args)
     {
-        _targetPos = HoloLensCamera.transform.position + (HoloLensCamera.transform.forward * 1);
-        _targetRotation = Vector3.Scale(HoloLensCamera.transform.forward, new Vector3(1,0,1)).normalized;
+        _targetPos = HoloLensCamera.transform.position + (HoloLensCamera.transform.TransformDirection(Vector3.forward) * 2);
+        _targetLookAt = HoloLensCamera.transform.position + (HoloLensCamera.transform.TransformDirection(Vector3.forward) * 4);
     }
 
 }

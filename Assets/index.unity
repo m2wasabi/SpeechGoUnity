@@ -802,6 +802,7 @@ GameObject:
   - component: {fileID: 2067297701}
   - component: {fileID: 2067297700}
   - component: {fileID: 2067297698}
+  - component: {fileID: 2067297699}
   m_Layer: 0
   m_Name: MagicCube
   m_TagString: Untagged
@@ -825,6 +826,17 @@ MonoBehaviour:
   TargetFeedbackSound2: {fileID: 8300000, guid: 499373f7fea86894e97ef2e5352d5816,
     type: 3}
   RotateVector3: {x: 0, y: 0, z: 0}
+--- !u!114 &2067297699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2067297697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b60c4d1acb38c747aec44257aa2b9ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2067297700
 MonoBehaviour:
   m_ObjectHideFlags: 0
