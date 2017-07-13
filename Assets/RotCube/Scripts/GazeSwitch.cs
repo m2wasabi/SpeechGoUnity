@@ -48,11 +48,11 @@ public class GazeSwitch : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            SwitchOn();
+            EffectSwitchOn();
         }
         if (Input.GetKeyDown(KeyCode.V))
         {
-            SwitchOff();
+            EffectSwitchOff();
         }
 
         transform.position = Vector3.Slerp(transform.position, _targetPos, Time.deltaTime);
@@ -75,13 +75,13 @@ public class GazeSwitch : MonoBehaviour {
         _targetLookAt = HoloLensCamera.transform.position + (HoloLensCamera.transform.TransformDirection(Vector3.forward) * 4);
     }
 
-    public void SwitchOn()
+    public void EffectSwitchOn()
     {
         Renderer _renderer = SwitchObject.GetComponent<Renderer>();
         _renderer.material = Materials[1];
     }
 
-    public void SwitchOff()
+    public void EffectSwitchOff()
     {
         Renderer _renderer = SwitchObject.GetComponent<Renderer>();
         _renderer.material = Materials[0];
