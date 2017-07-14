@@ -7,20 +7,28 @@ using Cursor = HoloToolkit.Unity.InputModule.Cursor;
 
 public class SpaceTapInputManager : MonoBehaviour
 {
-    private AudioSource _audioSource;
-    public AudioClip ChargeSound;
-    public AudioClip FireSound;
+    public enum TapSpeechState { Stop, Active }
+    public TapSpeechState TapSpeechStatus { get; private set; }
 
-    public AnimatedCursor _cursor;
+    private AnimatedCursor _cursor;
     private Cursor.CursorStateEnum _cursorState;
 
     public TextMesh InformationMesh;
 
     private bool _isCharge = false;
 
+    // Action Driver
+    private speech _speech;
+    private SoundManager _soundManager;
+    private ReactionManager _reactioManager;
+
     // Use this for initialization
     void Start () {
-        _audioSource = GetComponent<AudioSource>();
+        _speech = GameObject.Find("InputManager").GetComponent<speech>();
+        _soundManager = GetComponent<SoundManager>();
+        _reactioManager = GameObject.Find("InputManager").GetComponent<ReactionManager>();
+
+        _cursor = GameObject.Find("DefaultCursor").GetComponent<AnimatedCursor>();
     }
 
     // Update is called once per frame
@@ -28,7 +36,7 @@ public class SpaceTapInputManager : MonoBehaviour
     {
         //InformationMesh.text = "CursorStare: " + (int)_cursor.CursorState;
         // 無空間注視:2 あたり注視:3 クリック:4
-        if (_cursorState != _cursor.CursorState)
+        if (_cursor.CursorState != Cursor.CursorStateEnum.None && _cursorState != _cursor.CursorState)
         {
             OnCursorChanged(_cursorState, _cursor.CursorState);
             _cursorState = _cursor.CursorState;
@@ -39,30 +47,45 @@ public class SpaceTapInputManager : MonoBehaviour
 
     private void OnCursorChanged(Cursor.CursorStateEnum oldVal, Cursor.CursorStateEnum newVal)
     {
+        InformationMesh.text = "CurSor old:" + oldVal + " NewVal:" + newVal;
         if (_isCharge == false && oldVal != Cursor.CursorStateEnum.Select && newVal == Cursor.CursorStateEnum.Select)
         {
             _isCharge = true;
-            _audioSource.clip = ChargeSound;
-            _audioSource.Play();
+            _soundManager.Play(2);
         }
         else if (_isCharge == true && oldVal == Cursor.CursorStateEnum.Select && newVal != Cursor.CursorStateEnum.Select)
         {
             _isCharge = false;
-            _audioSource.clip = FireSound;
-            _audioSource.Play();
+            _soundManager.Play(3);
         }
     }
 
     public void OnInputDown(InputEventData eventData)
     {
-        _audioSource.clip = ChargeSound;
-        _audioSource.Play();
+        if (TapSpeechStatus == TapSpeechState.Stop && _speech.Status == speech.State.Stop)
+        {
+            _speech.StartRecordButtonOnClickHandler();
+            _reactioManager.BulletSourceIndex = 0;
+
+            TapSpeechStatus = TapSpeechState.Active;
+        }
+        else
+        {
+            _soundManager.Play(2);
+        }
     }
 
     public void OnInputUp(InputEventData eventData)
     {
-        _audioSource.clip = FireSound;
-        _audioSource.Play();
+        if (TapSpeechStatus == TapSpeechState.Active && _speech.Status == speech.State.Recording)
+        {
+            _speech.StopRecordButtonOnClickHandler();
+        }
+        _soundManager.Play(3);
     }
 
+    public void OnInputClicked(InputClickedEventData eventData)
+    {
+        //
+    }
 }
