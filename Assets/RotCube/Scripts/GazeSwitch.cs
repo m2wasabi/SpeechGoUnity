@@ -1,14 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using HoloToolkit.Unity.InputModule;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 
-public class GazeSwitch : MonoBehaviour {
+public class GazeSwitch : MonoBehaviour, IFocusable
+{
 
     private GameObject HoloLensCamera;
     private Vector3 _targetPos;
     private Vector3 _targetLookAt;
+
+    // Stat of Switch
+    public enum SwitchState { Off, On }
+    public SwitchState SwitchStatus { get; private set; }
 
     // clolor material
     public Material[] Materials;
@@ -20,10 +26,18 @@ public class GazeSwitch : MonoBehaviour {
     delegate void KeywordAction(PhraseRecognizedEventArgs args);
     Dictionary<string, KeywordAction> keywordCollection;
 
+    // Action Driver
     private speech _speech;
-    
+    private SoundManager _soundManager;
+    private ReactionManager _reactioManager;
+
+
     // Use this for initialization
     void Start () {
+        _speech = GameObject.Find("InputManager").GetComponent<speech>();
+        _soundManager = GetComponent<SoundManager>();
+        _reactioManager = GameObject.Find("InputManager").GetComponent<ReactionManager>();
+
         // KeywordRecognizer
         keywordCollection = new Dictionary<string, KeywordAction>();
         keywordCollection.Add("Cannon Come Here", MoveInCamera);
@@ -37,6 +51,7 @@ public class GazeSwitch : MonoBehaviour {
         _targetPos = HoloLensCamera.transform.position + (HoloLensCamera.transform.TransformDirection(Vector3.forward) * 2);
         _targetLookAt = HoloLensCamera.transform.position + (HoloLensCamera.transform.TransformDirection(Vector3.forward) * 4);
 
+        SwitchStatus = SwitchState.Off;
     }
 
     // Update is called once per frame
@@ -85,6 +100,32 @@ public class GazeSwitch : MonoBehaviour {
     {
         Renderer _renderer = SwitchObject.GetComponent<Renderer>();
         _renderer.material = Materials[0];
+    }
+
+    public void OnFocusEnter()
+    {
+        if (SwitchStatus == SwitchState.Off && _speech.Status == speech.State.Stop)
+        {
+            EffectSwitchOn();
+            _soundManager.Play(0);
+            _speech.StartRecordButtonOnClickHandler();
+            _reactioManager.BulletSourceIndex = 1;
+
+            SwitchStatus = SwitchState.On;
+        }
+    }
+    public void OnFocusExit()
+    {
+        if (SwitchStatus == SwitchState.On)
+        {
+            if (_speech.Status == speech.State.Recording)
+            {
+                _speech.StopRecordButtonOnClickHandler();
+            }
+            _soundManager.Play(1);
+            EffectSwitchOff();
+            SwitchStatus = SwitchState.Off;
+        }
     }
 
 }
