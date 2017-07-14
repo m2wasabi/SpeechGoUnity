@@ -29,6 +29,8 @@ public class SpaceTapInputManager : MonoBehaviour
         _reactioManager = GameObject.Find("InputManager").GetComponent<ReactionManager>();
 
         _cursor = GameObject.Find("DefaultCursor").GetComponent<AnimatedCursor>();
+
+        TapSpeechStatus = TapSpeechState.Stop;
     }
 
     // Update is called once per frame
@@ -50,11 +52,27 @@ public class SpaceTapInputManager : MonoBehaviour
         InformationMesh.text = "CurSor old:" + oldVal + " NewVal:" + newVal;
         if (_isCharge == false && oldVal != Cursor.CursorStateEnum.Select && newVal == Cursor.CursorStateEnum.Select)
         {
+            if (TapSpeechStatus == TapSpeechState.Stop && _speech.Status == speech.State.Stop)
+            {
+                _soundManager.Play(0);
+                _speech.StartRecordButtonOnClickHandler();
+                _reactioManager.BulletSourceIndex = 0;
+
+                TapSpeechStatus = TapSpeechState.Active;
+            }
+            else
+            {
+                _soundManager.Play(2);
+            }
             _isCharge = true;
-            _soundManager.Play(2);
         }
         else if (_isCharge == true && oldVal == Cursor.CursorStateEnum.Select && newVal != Cursor.CursorStateEnum.Select)
         {
+            if (TapSpeechStatus == TapSpeechState.Active && _speech.Status == speech.State.Recording)
+            {
+                _speech.StopRecordButtonOnClickHandler();
+                TapSpeechStatus = TapSpeechState.Stop;
+            }
             _isCharge = false;
             _soundManager.Play(3);
         }
