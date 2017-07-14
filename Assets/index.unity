@@ -129,13 +129,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 68368951}
-  m_LocalRotation: {x: -0.122541845, y: -0.0076725944, z: -0.022940006, w: 0.9921686}
-  m_LocalPosition: {x: -0.00005, y: -0.01452, z: 0.00936}
+  m_LocalRotation: {x: 0.56289065, y: -0.103012346, z: 0.12976933, w: 0.8097546}
+  m_LocalPosition: {x: -0.000050001378, y: -0.01452, z: 0.009360152}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1919560980}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -14.094001, y: -0.56700003, z: -2.5790002}
+  m_LocalEulerAnglesHint: {x: 69.775, y: -3.439, z: 15.811}
 --- !u!102 &101165324 stripped
 TextMesh:
   m_PrefabParentObject: {fileID: 102000010767390410, guid: bfdc7f60d7205c84f82a4806a5352d60,
@@ -333,7 +333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &380734903
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -615,7 +615,7 @@ MonoBehaviour:
   BulletSourceIndex: 0
   BulletSources:
   - {fileID: 2020194316}
-  - {fileID: 2067297697}
+  - {fileID: 68368951}
 --- !u!114 &917150477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -803,6 +803,7 @@ GameObject:
   - component: {fileID: 2067297700}
   - component: {fileID: 2067297698}
   - component: {fileID: 2067297699}
+  - component: {fileID: 2067297702}
   m_Layer: 0
   m_Name: MagicCube
   m_TagString: Untagged
@@ -837,6 +838,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b60c4d1acb38c747aec44257aa2b9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Materials:
+  - {fileID: 2100000, guid: 94880c05bcd70c246bfb66841860fd68, type: 2}
+  - {fileID: 2100000, guid: 22bfeee782345124da0d1fa88833bf08, type: 2}
+  SwitchObject: {fileID: 819421341}
 --- !u!114 &2067297700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -868,6 +873,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2067297702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2067297697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcf59b5045cef6b448d1a7e3b7eb76bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sounds:
+  - {fileID: 8300000, guid: e141ce3f2cc80874cad0d2ddc32635d7, type: 3}
+  - {fileID: 8300000, guid: 499373f7fea86894e97ef2e5352d5816, type: 3}
 --- !u!1 &2109151368
 GameObject:
   m_ObjectHideFlags: 0
