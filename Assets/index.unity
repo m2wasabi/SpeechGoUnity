@@ -206,6 +206,11 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 0.016666664
       objectReference: {fileID: 0}
+    - target: {fileID: 102000010767390410, guid: bfdc7f60d7205c84f82a4806a5352d60,
+        type: 2}
+      propertyPath: m_Color.rgba
+      value: 16777215
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bfdc7f60d7205c84f82a4806a5352d60, type: 2}
   m_IsPrefabParent: 0
@@ -680,6 +685,11 @@ Prefab:
       propertyPath: customApiKey
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 82000011058181260, guid: 2952a2d5e5ba44244b0fb2b708b3fdab,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2952a2d5e5ba44244b0fb2b708b3fdab, type: 2}
   m_IsPrefabParent: 0
@@ -786,6 +796,17 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000011021619270, guid: d379ed0a5618c9f479f58bd83a2d0ad3,
     type: 2}
   m_PrefabInternal: {fileID: 357305580}
+--- !u!114 &2020194323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2020194316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b97472efb8016864e80d728aef99892d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2067297697
 GameObject:
   m_ObjectHideFlags: 0

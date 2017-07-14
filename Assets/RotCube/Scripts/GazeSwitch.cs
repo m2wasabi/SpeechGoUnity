@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using HoloToolkit.Unity.InputModule;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
@@ -18,13 +17,8 @@ public class GazeSwitch : MonoBehaviour, IFocusable
 
     // clolor material
     public Material[] Materials;
-    private int _materialIndex = 0;
+    //private int _materialIndex = 0;
     public GameObject SwitchObject;
-
-    // Windows KeywordRecognizer
-    private KeywordRecognizer keywordRecognizer;
-    delegate void KeywordAction(PhraseRecognizedEventArgs args);
-    Dictionary<string, KeywordAction> keywordCollection;
 
     // Action Driver
     private speech _speech;
@@ -37,14 +31,6 @@ public class GazeSwitch : MonoBehaviour, IFocusable
         _speech = GameObject.Find("InputManager").GetComponent<speech>();
         _soundManager = GetComponent<SoundManager>();
         _reactioManager = GameObject.Find("InputManager").GetComponent<ReactionManager>();
-
-        // KeywordRecognizer
-        keywordCollection = new Dictionary<string, KeywordAction>();
-        keywordCollection.Add("Cannon Come Here", MoveInCamera);
-        //keywordCollection.Add("Switch", ToggleBulletSource);
-        keywordRecognizer = new KeywordRecognizer(keywordCollection.Keys.ToArray());
-        keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
-        keywordRecognizer.Start();
 
         // Find Camera
         HoloLensCamera = GameObject.Find("HoloLensCamera");
@@ -74,17 +60,7 @@ public class GazeSwitch : MonoBehaviour, IFocusable
         transform.LookAt(_targetLookAt);
     }
 
-    private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
-    {
-        KeywordAction keywordAction;
-
-        if (keywordCollection.TryGetValue(args.text, out keywordAction))
-        {
-            keywordAction.Invoke(args);
-        }
-    }
-
-    private void MoveInCamera(PhraseRecognizedEventArgs args)
+    public void MoveInCamera(PhraseRecognizedEventArgs args)
     {
         _targetPos = HoloLensCamera.transform.position + (HoloLensCamera.transform.TransformDirection(Vector3.forward) * 2);
         _targetLookAt = HoloLensCamera.transform.position + (HoloLensCamera.transform.TransformDirection(Vector3.forward) * 4);
