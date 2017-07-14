@@ -30,8 +30,9 @@ public class SoundManager : MonoBehaviour {
 
     public void Play(int index)
     {
-        if (Sounds.Length > index && Sounds[index] != null && !_audioSource.isPlaying)
+        if (Sounds.Length > index && Sounds[index] != null)
         {
+            _audioSource.Stop();
             _audioSource.clip = Sounds[index];
             _audioSource.Play();
         }
