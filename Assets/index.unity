@@ -782,7 +782,7 @@ Prefab:
         type: 2}
       propertyPath: RoomModel
       value: 
-      objectReference: {fileID: 100006, guid: bf59fbaac6575ae46a6d8d351dc72332, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 114000012149591842, guid: 2ed75ffdf9031c94e8bce4b3d17b9928,
         type: 2}
       propertyPath: SimulatedUpdatePeriodInSeconds
