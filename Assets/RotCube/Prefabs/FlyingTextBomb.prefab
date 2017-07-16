@@ -136,4 +136,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExplodeTimer: 2.5
-  Explosion: {fileID: 1713448761605032, guid: 17e3922ee53042d428568946bcd30fed, type: 2}
+  Explosion: {fileID: 1161458936586076, guid: 17e3922ee53042d428568946bcd30fed, type: 2}
