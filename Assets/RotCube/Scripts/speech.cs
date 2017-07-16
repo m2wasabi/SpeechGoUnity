@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using FrostweepGames.SpeechRecognition.Utilites;
-using FrostweepGames.SpeechRecognition.Google.Cloud;
+using FrostweepGames.Plugins.GoogleCloud.SpeechRecognition;
 using UnityEngine.VR.WSA.Input;
 using System;
 
 public class speech : MonoBehaviour
 {
     public TextMesh InformationMesh;
-    private ILowLevelSpeechRecognition _speechRecognition;
+    private GCSpeechRecognition _speechRecognition;
     //private InputField _contextPhrases;
 
     private ReactionManager _reactionManager;
@@ -56,9 +55,10 @@ public class speech : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        _speechRecognition = SpeechRecognitionModule.Instance;
-        _speechRecognition.SpeechRecognizedSuccessEvent += SpeechRecognizedSuccessEventHandler;
-        _speechRecognition.SpeechRecognizedFailedEvent += SpeechRecognizedFailedEventHandler;
+        _speechRecognition = GCSpeechRecognition.Instance;
+        _speechRecognition.SetLanguage(Enumerators.LanguageCode.JA);
+        _speechRecognition.RecognitionSuccessEvent += SpeechRecognizedSuccessEventHandler;
+        _speechRecognition.RecognitionFailedEvent += SpeechRecognizedFailedEventHandler;
 
         _reactionManager = ReactionManager.Instance;
 
@@ -83,14 +83,8 @@ public class speech : MonoBehaviour
 
     private void OnDestroy()
     {
-        _speechRecognition.SpeechRecognizedSuccessEvent -= SpeechRecognizedSuccessEventHandler;
-        _speechRecognition.SpeechRecognizedFailedEvent -= SpeechRecognizedFailedEventHandler;
-    }
-    private void IsRuntimeDetectionOnValueChangedHandler(bool value)
-    {
-        StopRuntimeDetectionButtonOnClickHandler();
-
-        (_speechRecognition as SpeechRecognitionModule).isRuntimeDetection = value;
+        _speechRecognition.RecognitionSuccessEvent -= SpeechRecognizedSuccessEventHandler;
+        _speechRecognition.RecognitionFailedEvent -= SpeechRecognizedFailedEventHandler;
     }
 
     //private void ApplySpeechContextPhrases()
@@ -101,7 +95,7 @@ public class speech : MonoBehaviour
     //        _speechRecognition.SetSpeechContext(phrases);
     //}
 
-    private void SpeechRecognizedFailedEventHandler(string obj)
+    private void SpeechRecognizedFailedEventHandler(string obj, long l)
     {
         InformationMesh.text = "Speech Recognition failed with error: " + obj;
         _audioSource.clip = FailSound;
@@ -109,7 +103,7 @@ public class speech : MonoBehaviour
         Status = State.Stop;
     }
 
-    private void SpeechRecognizedSuccessEventHandler(RecognitionResponse obj)
+    private void SpeechRecognizedSuccessEventHandler(RecognitionResponse obj, long l)
     {
         if (obj != null && obj.results.Length > 0)
         {
@@ -146,17 +140,9 @@ public class speech : MonoBehaviour
         _reactionManager.Action(obj);
     }
 
-    private void StartRuntimeDetectionButtonOnClickHandler()
-    {
-        //ApplySpeechContextPhrases();
-
-        InformationMesh.text = "";
-        _speechRecognition.StartRuntimeRecord();
-    }
-
     private void StopRuntimeDetectionButtonOnClickHandler()
     {
-        _speechRecognition.StopRuntimeRecord();
+        _speechRecognition.StopRecord();
         InformationMesh.text = "";
     }
 
@@ -165,7 +151,7 @@ public class speech : MonoBehaviour
         if (Status == State.Stop)
         {
             InformationMesh.text = "";
-            _speechRecognition.StartRecord();
+            _speechRecognition.StartRecord(false);
             Status = State.Recording;
         }
     }

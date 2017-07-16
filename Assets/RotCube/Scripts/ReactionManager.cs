@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using FrostweepGames.Plugins.GoogleCloud.SpeechRecognition;
 using UnityEngine;
-using FrostweepGames.SpeechRecognition.Google.Cloud;
 using HoloToolkit.Unity;
 
 public class ReactionManager : Singleton<ReactionManager>
