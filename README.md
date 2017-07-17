@@ -4,6 +4,10 @@ HoloLensで言霊を発射するアプリです。
 
 [![動作シーン](https://img.youtube.com/vi/CfBzbpxRcrA/0.jpg)](https://www.youtube.com/watch?v=CfBzbpxRcrA)
 
+## 動作環境
+
+Unity 2017.1.0f3
+
 ## ビルド方法
 
 1. ソースのダウンロード
