@@ -2,7 +2,7 @@
 
 HoloLensで言霊を発射するアプリです。
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/CfBzbpxRcrA" frameborder="0" allowfullscreen></iframe>
+[![動作シーン](https://img.youtube.com/vi/CfBzbpxRcrA/0.jpg)](https://www.youtube.com/watch?v=CfBzbpxRcrA)
 
 ## ビルド方法
 
