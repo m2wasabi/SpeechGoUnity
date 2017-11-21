@@ -11,7 +11,7 @@ public class SpaceTapInputManager : MonoBehaviour
     public TapSpeechState TapSpeechStatus { get; private set; }
 
     private AnimatedCursor _cursor;
-    private Cursor.CursorStateEnum _cursorState;
+    private CursorStateEnum _cursorState;
 
     public TextMesh InformationMesh;
 
@@ -38,7 +38,7 @@ public class SpaceTapInputManager : MonoBehaviour
     {
         //InformationMesh.text = "CursorStare: " + (int)_cursor.CursorState;
         // 無空間注視:2 あたり注視:3 クリック:4
-        if (_cursor.CursorState != Cursor.CursorStateEnum.None && _cursorState != _cursor.CursorState)
+        if (_cursor.CursorState != CursorStateEnum.None && _cursorState != _cursor.CursorState)
         {
             OnCursorChanged(_cursorState, _cursor.CursorState);
             _cursorState = _cursor.CursorState;
@@ -47,10 +47,10 @@ public class SpaceTapInputManager : MonoBehaviour
 
     }
 
-    private void OnCursorChanged(Cursor.CursorStateEnum oldVal, Cursor.CursorStateEnum newVal)
+    private void OnCursorChanged(CursorStateEnum oldVal, CursorStateEnum newVal)
     {
         InformationMesh.text = "CurSor old:" + oldVal + " NewVal:" + newVal;
-        if (_isCharge == false && oldVal != Cursor.CursorStateEnum.Select && newVal == Cursor.CursorStateEnum.Select)
+        if (_isCharge == false && oldVal != CursorStateEnum.Select && newVal == CursorStateEnum.Select)
         {
             if (TapSpeechStatus == TapSpeechState.Stop && _speech.Status == speech.State.Stop)
             {
@@ -66,7 +66,7 @@ public class SpaceTapInputManager : MonoBehaviour
             }
             _isCharge = true;
         }
-        else if (_isCharge == true && oldVal == Cursor.CursorStateEnum.Select && newVal != Cursor.CursorStateEnum.Select)
+        else if (_isCharge == true && oldVal == CursorStateEnum.Select && newVal != CursorStateEnum.Select)
         {
             if (TapSpeechStatus == TapSpeechState.Active && _speech.Status == speech.State.Recording)
             {

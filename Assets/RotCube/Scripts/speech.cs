@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using FrostweepGames.Plugins.GoogleCloud.SpeechRecognition;
-using UnityEngine.VR.WSA.Input;
+
 using System;
 
 public class speech : MonoBehaviour
@@ -14,7 +14,7 @@ public class speech : MonoBehaviour
 
     private ReactionManager _reactionManager;
 
-    public GestureRecognizer InputActionRecognizer { get; private set; }
+    public UnityEngine.XR.WSA.Input.GestureRecognizer InputActionRecognizer { get; private set; }
 
     public enum State { Stop, Recording, Analyzing }
     public State Status { get; private set; }
@@ -30,14 +30,14 @@ public class speech : MonoBehaviour
 
     void Awake()
     {
-        InputActionRecognizer = new GestureRecognizer();
-        InputActionRecognizer.SetRecognizableGestures(GestureSettings.Hold);
+        InputActionRecognizer = new UnityEngine.XR.WSA.Input.GestureRecognizer();
+        InputActionRecognizer.SetRecognizableGestures(UnityEngine.XR.WSA.Input.GestureSettings.Hold);
 
         InputActionRecognizer.HoldStartedEvent += InputActionRecognizer_HoldStartEvent;
         InputActionRecognizer.HoldCompletedEvent += InputActionRecognizer_HoldCompletedEvent;
     }
 
-    private void InputActionRecognizer_HoldStartEvent(InteractionSourceKind source, Ray headRay)
+    private void InputActionRecognizer_HoldStartEvent(UnityEngine.XR.WSA.Input.InteractionSourceKind source, Ray headRay)
     {
         _audioSource.clip = ChargeSound;
         _audioSource.Play();
@@ -45,7 +45,7 @@ public class speech : MonoBehaviour
         //StartRecordButtonOnClickHandler();
     }
 
-    private void InputActionRecognizer_HoldCompletedEvent(InteractionSourceKind source, Ray headRay)
+    private void InputActionRecognizer_HoldCompletedEvent(UnityEngine.XR.WSA.Input.InteractionSourceKind source, Ray headRay)
     {
         _audioSource.clip = FireSound;
         _audioSource.Play();
@@ -56,9 +56,9 @@ public class speech : MonoBehaviour
     void Start()
     {
         _speechRecognition = GCSpeechRecognition.Instance;
-        _speechRecognition.SetLanguage(Enumerators.LanguageCode.JA);
+        _speechRecognition.SetLanguage(Enumerators.LanguageCode.ja_JP);
         _speechRecognition.RecognitionSuccessEvent += SpeechRecognizedSuccessEventHandler;
-        _speechRecognition.RecognitionFailedEvent += SpeechRecognizedFailedEventHandler;
+        _speechRecognition.NetworkRequestFailedEvent += SpeechRecognizedFailedEventHandler;
 
         _reactionManager = ReactionManager.Instance;
 
@@ -84,7 +84,7 @@ public class speech : MonoBehaviour
     private void OnDestroy()
     {
         _speechRecognition.RecognitionSuccessEvent -= SpeechRecognizedSuccessEventHandler;
-        _speechRecognition.RecognitionFailedEvent -= SpeechRecognizedFailedEventHandler;
+        _speechRecognition.NetworkRequestFailedEvent -= SpeechRecognizedFailedEventHandler;
     }
 
     //private void ApplySpeechContextPhrases()

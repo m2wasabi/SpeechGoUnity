@@ -6,7 +6,7 @@ HoloLensで言霊を発射するアプリです。
 
 ## 動作環境
 
-Unity 2017.1.0f3
+Unity 2017.2.0f3
 
 ## ビルド方法
 
@@ -23,21 +23,18 @@ Unity 2017.1.0f3
     以下のアセットを入手してプロジェクトに追加する。  
     Google Cloud Speech Recognition は有料アセット($20)なので気を付けよう。  
 
-    + [Google Cloud Speech Recognition(V3.0)](https://www.assetstore.unity3d.com/jp/#!/content/72625)
+    + [Google Cloud Speech Recognition(V3.1)](https://www.assetstore.unity3d.com/jp/#!/content/72625)
     + [Cannon on a Platform](https://www.assetstore.unity3d.com/jp/#!/content/57534)
-    + [HoloToolkit-Unity(master)](https://github.com/Microsoft/HoloToolkit-Unity)
+    + [HoloToolkit-Unity(v1.2017.2.0)](https://github.com/Microsoft/HoloToolkit-Unity)
     + StandardAssets/ParticleSystems
-
-    ※Google Cloud Speech Recognition について、V3.0現在、そのままではUWPで動作しない。
-    そこで以下のようにソースを書き換える。
-
-    [\Assets\FrostweepGames\GCSpeechRecognition\Scripts\Core\Managers\ThreadManager.cs](https://gist.github.com/m2wasabi/aa1227bf26dc5dca3a2112228b05c8b0)
 
 3. プロジェクト・シーンの再読み込みを行う
 
 4. Google Croud Speech API が利用できるAPIキーを入手する
 
     参考URL: [クイックスタート Speech API – 音声認識 | Google Cloud Platform](https://cloud.google.com/speech/docs/getting-started?hl=ja)
+
+    `Hierarchy`内の`GCSpeechRecognition` オブジェクトの `Api Key` プロパティに入手したキーを記入する
 
 5. Universal Windows Platform 用にアプリをビルドする
 

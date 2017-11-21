@@ -525,12 +525,13 @@ PlayerSettings:
     20: MOBILE_INPUT
     22: MOBILE_INPUT
   platformArchitecture: {}
-  scriptingBackend: {}
+  scriptingBackend:
+    Metro: 2
   incrementalIl2cppBuild: {}
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 0
   apiCompatibilityLevelPerPlatform:
-    Metro: 3
+    Metro: 2
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: GoogleAssistantTest
@@ -542,7 +543,7 @@ PlayerSettings:
   metroCertificateNotAfter: 80c3d02ff2fdd301
   metroApplicationDescription: GoogleAssistantTest
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: SpeechGo
   metroCommandLineArgsFile: 
   metroTileShowName: 0
   metroMediumTileShowName: 0
